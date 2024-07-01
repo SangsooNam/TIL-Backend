@@ -1,0 +1,5 @@
+rootProject.name = 'TIL-Backend'
+include 'til-common'
+include 'til-api'
+include 'til-domain'
+include 'til-batch'
