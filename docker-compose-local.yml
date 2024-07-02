@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: mysql:8.4
+    ports:
+      - 3308:3306
+    volumes:
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
+    command:
+      - '--character-set-server=utf8mb4'
+      - '--collation-server=utf8mb4_unicode_ci'
+    environment:
+      MYSQL_DATABASE: til
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: pw@1234

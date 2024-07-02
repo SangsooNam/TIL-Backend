@@ -35,3 +35,12 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+## docker
+db/
+
+## Mac
+.DS_Store
+.AppleDouble
+.LSOverride
