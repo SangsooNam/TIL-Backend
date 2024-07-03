@@ -13,8 +13,7 @@ public enum ErrorCode implements StatusCode {
 	BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
 	METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "허용되지 않는 메소드입니다."),
 	ACCESS_DENIED(HttpStatus.FORBIDDEN, "접근 권한이 없습니다."),
-	UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다."),
-	;
+	UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다.");
 
 	private final HttpStatus status;
 	private final String message;

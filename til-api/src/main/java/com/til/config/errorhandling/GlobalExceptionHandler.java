@@ -21,18 +21,18 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(BaseException.class)
-	protected ResponseEntity<ErrorResponse> handleCustomException(final BaseException e) {
-		log.error("handleCustomException: {}", e.getErrorCode());
-		ErrorResponse response = ErrorResponse.of(e.getErrorCode());
+	protected ResponseEntity<ErrorResponse> handleCustomException(final BaseException ex) {
+		log.error("handleCustomException: {}", ex.getErrorCode());
+		ErrorResponse response = ErrorResponse.of(ex.getErrorCode());
 
 		return ResponseEntity
-			.status(e.getErrorCode().getStatus().value())
+			.status(ex.getErrorCode().getStatus().value())
 			.body(response);
 	}
 
 	@ExceptionHandler(AccessDeniedException.class)
-	protected ResponseEntity<ErrorResponse> handleAccessDenied(final AccessDeniedException e) {
-		log.error("AccessDeniedException: {}", e.getMessage());
+	protected ResponseEntity<ErrorResponse> handleAccessDenied(final AccessDeniedException ex) {
+		log.error("AccessDeniedException: {}", ex.getMessage());
 		ErrorResponse response = ErrorResponse.of(ErrorCode.ACCESS_DENIED);
 
 		return ResponseEntity
