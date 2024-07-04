@@ -15,6 +15,9 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.til.domain.common.enums.BaseErrorCode;
+import com.til.domain.common.exception.BaseException;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -33,7 +36,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(AccessDeniedException.class)
 	protected ResponseEntity<ErrorResponse> handleAccessDenied(final AccessDeniedException ex) {
 		log.error("AccessDeniedException: {}", ex.getMessage());
-		ErrorResponse response = ErrorResponse.of(ErrorCode.ACCESS_DENIED);
+		ErrorResponse response = ErrorResponse.of(BaseErrorCode.ACCESS_DENIED);
 
 		return ResponseEntity
 			.status(HttpStatus.FORBIDDEN)
@@ -43,7 +46,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex,
 		HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		ErrorResponse response = ErrorResponse.of(ErrorCode.METHOD_NOT_ALLOWED);
+		ErrorResponse response = ErrorResponse.of(BaseErrorCode.METHOD_NOT_ALLOWED);
 
 		return ResponseEntity
 			.status(HttpStatus.METHOD_NOT_ALLOWED)
@@ -53,7 +56,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
 		HttpStatusCode status, WebRequest request) {
-		ErrorResponse response = ErrorResponse.of(ErrorCode.NOT_FOUND);
+		ErrorResponse response = ErrorResponse.of(BaseErrorCode.NOT_FOUND);
 
 		return ResponseEntity
 			.status(HttpStatus.NOT_FOUND)
@@ -63,7 +66,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 		HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		ErrorResponse response = ErrorResponse.of(ErrorCode.BAD_REQUEST);
+		ErrorResponse response = ErrorResponse.of(BaseErrorCode.BAD_REQUEST);
 
 		return ResponseEntity
 			.badRequest()
@@ -73,7 +76,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 		HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		ErrorResponse response = ErrorResponse.of(ErrorCode.BAD_REQUEST);
+		ErrorResponse response = ErrorResponse.of(BaseErrorCode.BAD_REQUEST);
 
 		return ResponseEntity
 			.badRequest()
@@ -83,7 +86,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<ErrorResponse> handleAllException(final Exception ex) {
 		log.error("Exception: {}", ex.getMessage());
-		ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
+		ErrorResponse response = ErrorResponse.of(BaseErrorCode.INTERNAL_SERVER_ERROR);
 
 		return ResponseEntity
 			.internalServerError()

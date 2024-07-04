@@ -1,5 +1,8 @@
 package com.til.common.response;
 
+import com.til.domain.common.enums.ErrorCode;
+import com.til.domain.common.enums.SuccessCode;
+
 import lombok.Getter;
 
 @Getter
@@ -12,7 +15,11 @@ public class ApiStatus {
 		this.message = message;
 	}
 
-	public static ApiStatus of(StatusCode status) {
+	public static ApiStatus of(SuccessCode status) {
+		return new ApiStatus(status.name(), status.getMessage());
+	}
+
+	public static ApiStatus of(ErrorCode status) {
 		return new ApiStatus(status.name(), status.getMessage());
 	}
 }

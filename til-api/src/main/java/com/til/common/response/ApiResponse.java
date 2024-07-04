@@ -1,6 +1,8 @@
 package com.til.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.til.domain.common.enums.BaseSuccessCode;
+import com.til.domain.common.enums.SuccessCode;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,20 +15,20 @@ public class ApiResponse<T> {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private T result;
 
-	private ApiResponse(StatusCode statusCode, T result) {
-		this.status = ApiStatus.of(statusCode);
+	private ApiResponse(SuccessCode status, T result) {
+		this.status = ApiStatus.of(status);
 		this.result = result;
 	}
 
 	public static <T> ApiResponse<T> ok() {
-		return new ApiResponse<>(SuccessCode.OK, null);
+		return new ApiResponse<>(BaseSuccessCode.OK, null);
 	}
 
 	public static <T> ApiResponse<T> ok(T data) {
-		return new ApiResponse<>(SuccessCode.OK, data);
+		return new ApiResponse<>(BaseSuccessCode.OK, data);
 	}
 
-	public static <T> ApiResponse<T> ok(StatusCode statusCode, T data) {
-		return new ApiResponse<>(statusCode, data);
+	public static <T> ApiResponse<T> ok(SuccessCode status, T data) {
+		return new ApiResponse<>(status, data);
 	}
 }

@@ -1,7 +1,7 @@
 package com.til.config.errorhandling;
 
 import com.til.common.response.ApiStatus;
-import com.til.common.response.StatusCode;
+import com.til.domain.common.enums.ErrorCode;
 
 import lombok.Getter;
 
@@ -9,11 +9,11 @@ import lombok.Getter;
 public class ErrorResponse {
 	private ApiStatus status;
 
-	private ErrorResponse(StatusCode statusCode) {
-		this.status = ApiStatus.of(statusCode);
+	private ErrorResponse(ErrorCode status) {
+		this.status = ApiStatus.of(status);
 	}
 
-	public static ErrorResponse of(StatusCode statusCode) {
-		return new ErrorResponse(statusCode);
+	public static ErrorResponse of(ErrorCode status) {
+		return new ErrorResponse(status);
 	}
 }

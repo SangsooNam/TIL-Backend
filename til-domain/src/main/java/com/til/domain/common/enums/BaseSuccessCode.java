@@ -1,14 +1,14 @@
-package com.til.common.response;
+package com.til.domain.common.enums;
 
 import lombok.Getter;
 
 @Getter
-public enum SuccessCode implements StatusCode {
+public enum BaseSuccessCode implements SuccessCode {
 	OK("성공하였습니다.");
 
 	private final String message;
 
-	SuccessCode(String message) {
+	BaseSuccessCode(String message) {
 		this.message = message;
 	}
 }
