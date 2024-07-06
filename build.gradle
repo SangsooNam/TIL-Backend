@@ -5,15 +5,21 @@ plugins {
 }
 
 bootJar.enabled = false
+jar.enabled = true
 
-repositories {
-    mavenCentral()
-}
-
-subprojects {
+// 모든 프로젝트에 적용
+allprojects {
     group = 'com.til'
     version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '17'
 
+    repositories {
+        mavenCentral()
+    }
+}
+
+// 서브 프로젝트 전체에 적용
+subprojects {
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(17)
@@ -35,19 +41,23 @@ subprojects {
         mavenCentral()
     }
 
-    dependencies { // 모든 하위 모듈에 추가될 의존성 목록
+    dependencies { // 공통적으로 사용할 의존성 목록
         implementation 'org.springframework.boot:spring-boot-starter'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
         implementation 'org.springframework.boot:spring-boot-starter-security:3.3.0'
 
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'org.springframework.security:spring-security-test'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     }
 
-    tasks.named('test') {
+    test {
         useJUnitPlatform()
     }
 }

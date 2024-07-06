@@ -1,27 +1,26 @@
 package com.til;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import jakarta.annotation.PostConstruct;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class BatchApplication {
 	// ----Test Code----
-	private final TestBean testBean;
+	private final TestDomainBean testDomainBean;
 
-	@Autowired
-	public BatchApplication(TestBean testBean) {
-		this.testBean = testBean;
+	public BatchApplication(TestDomainBean testDomainBean) {
+		this.testDomainBean = testDomainBean;
 	}
 
 	@PostConstruct
 	public void dependencyTest() {
-		testBean.dependencyTest();
+		testDomainBean.dependencyTest();
 	}
-	// ------------------
 
+	// ------------------
 	public static void main(String[] args) {
 		SpringApplication.run(BatchApplication.class, args);
 	}

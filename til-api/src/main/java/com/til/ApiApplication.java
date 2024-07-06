@@ -1,6 +1,5 @@
 package com.til;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -9,16 +8,15 @@ import jakarta.annotation.PostConstruct;
 @SpringBootApplication
 public class ApiApplication {
 	// ----Test Code----
-	private final TestBean testBean;
+	private final TestDomainBean testDomainBean;
 
-	@Autowired
-	public ApiApplication(TestBean testBean) {
-		this.testBean = testBean;
+	public ApiApplication(TestDomainBean testDomainBean) {
+		this.testDomainBean = testDomainBean;
 	}
 
 	@PostConstruct
 	public void dependencyTest() {
-		testBean.dependencyTest();
+		testDomainBean.dependencyTest();
 	}
 	// ------------------
 
