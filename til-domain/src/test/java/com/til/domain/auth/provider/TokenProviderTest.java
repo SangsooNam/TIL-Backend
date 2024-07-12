@@ -25,7 +25,7 @@ class TokenProviderTest {
 	@InjectMocks
 	private TokenProvider tokenProvider;
 
-	private String secretKey = "test1234".repeat(10);
+	private final String secretKey = "test1234".repeat(10);
 
 	@BeforeEach
 	void setUp() {
