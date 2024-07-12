@@ -79,6 +79,7 @@ class UserServiceTest {
 	}
 
 	private UserLoginDto createUserLoginDto() {
+
 		return UserLoginDto.builder()
 			.email("test@til.com")
 			.password("soma2024")
