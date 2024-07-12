@@ -25,12 +25,12 @@ class TokenProviderTest {
 	@InjectMocks
 	private TokenProvider tokenProvider;
 
-	private String secretKey = "test1234".repeat(10);
+	private static final String SECRET_KEY = "test1234".repeat(10);
 
 	@BeforeEach
 	void setUp() {
-		ReflectionTestUtils.setField(tokenProvider, "secretKey", secretKey);
-		tokenProvider.afterPropertiesSet();
+		ReflectionTestUtils.setField(tokenProvider, "SECRET_KEY", SECRET_KEY);
+		ReflectionTestUtils.setField(tokenProvider, "SIGN_KEY", Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY)));
 	}
 
 	@Test
@@ -73,8 +73,8 @@ class TokenProviderTest {
 		return Jwts.builder()
 			.subject("test@til.com")
 			.claims(null)
-			.expiration(new Date(System.currentTimeMillis() - 60000))
-			.signWith(getSecretKey())
+			.expiration(new Date(System.currentTimeMillis() - 1000000))
+			.signWith(getSignKey())
 			.compact();
 	}
 
@@ -83,7 +83,7 @@ class TokenProviderTest {
 			.subject("test@til.com")
 			.claims(null)
 			.expiration(new Date(System.currentTimeMillis() + 1000000))
-			.signWith(getWrongSecretKey())
+			.signWith(getWrongSignKey())
 			.compact();
 	}
 
@@ -92,15 +92,15 @@ class TokenProviderTest {
 			.subject("test@til.com")
 			.claims(Map.of("nickname", "test", "role", "USER", "tokenType", "ACCESS"))
 			.expiration(new Date(System.currentTimeMillis() + 1000000))
-			.signWith(getSecretKey())
+			.signWith(getSignKey())
 			.compact();
 	}
 
-	private SecretKey getSecretKey() {
-		return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+	private SecretKey getSignKey() {
+		return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
 	}
 
-	private SecretKey getWrongSecretKey() {
+	private SecretKey getWrongSignKey() {
 		return Keys.hmacShaKeyFor(Decoders.BASE64.decode("wrong".repeat(10)));
 	}
 }
