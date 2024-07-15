@@ -1,3 +1,4 @@
 *.* text eol=lf
 
 # exception for lf (=crlf) files
+*.jar -text
